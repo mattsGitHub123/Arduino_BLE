@@ -22,6 +22,12 @@ int photocellData = 0;         // value read from the sensor
 int serviceStarted = 0;
 char thermisterArray[6];
 
+/**
+ * setup()
+ * 
+ * First method called when microcontroller is powered up.
+ * Sets up serial communication and button pin and led pin
+ */
 void setup()
 {
   Serial.begin(57600);
@@ -30,6 +36,12 @@ void setup()
   pinMode(ledPin,OUTPUT);     //initialize the led pin as output
 }
 
+
+/**
+ * startBLESerivce()
+ * 
+ * Starts the BLE service and sets the name to BLE Shield.
+ */
 void startBLEService()
 {
   ble_set_name("BLE Shield");
@@ -37,6 +49,11 @@ void startBLEService()
   serviceStarted = 1;
 }
 
+/**
+ * readFromPhotoCell()
+ * 
+ * Reads a analog value from the photocell.
+ */
 void readFromPhotoCell()
 {
   Serial.println("In read from photo cell");
@@ -46,6 +63,11 @@ void readFromPhotoCell()
  
 }
 
+/**
+ * readFromThermister()
+ * 
+ * Reads a anolog values from the thermister. Converts it from C to F then to an ascii string.
+ */
 void readFromThermister()
 {
   Serial.println("in read from thermister");
@@ -69,6 +91,12 @@ void readFromThermister()
   Serial.println();
 }
 
+/**
+ * loop()
+ * 
+ * Infinite loop that will check if button has been pressed. If so the BLE serivce is started. The microcontroller
+ * will wait for the iPhone to connect and received a one before dumping its data. 
+ */
 void loop()
 {
   if (digitalRead(keyPin) == HIGH)
